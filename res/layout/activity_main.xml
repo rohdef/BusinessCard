@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:orientation="vertical">
+    
+    <LinearLayout 
+        android:id="@+id/LinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+        
+        <ImageView
+            android:id="@+id/profileImage"
+            android:contentDescription="@string/profileImageDecription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:src="@drawable/me" />
+        
+        <Button
+            android:id="@+id/projectsButton"
+            android:text="@string/projectsButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:onClick="onProjectsClick" />
+        
+        <Button
+            android:id="@+id/methodsAndTeamsButton"
+            android:text="@string/methodsAndTeamsButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp" />
+        
+        <Button
+            android:id="@+id/skillsButton"
+            android:text="@string/skillsButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp" />
+        
+        <Button
+            android:id="@+id/contactButton"
+            android:text="@string/contactButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:onClick="onContactClick" />
+    </LinearLayout>
+</ScrollView>
+    

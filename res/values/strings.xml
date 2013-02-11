@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">RF Business Card</string>
+    <string name="menu_settings">Settings</string>
+    
+    <string name="profileImageDecription">Rohde Fischer smiling and looking good :)</string>
+    <string name="projectsButton">Projects</string>
+    <string name="methodsAndTeamsButton">Methods and team work</string>
+    <string name="skillsButton">Skills</string>
+    <string name="contactButton">Contact</string>
+<!--     <string name=""></string> -->
+    
+    <string name="contactAddress">
+        <![CDATA[
+        	<strong>%1$s %2$s</strong><br />
+        	Kirkeg&aring;rdsvej 10 D, 3.-3<br />
+        	8000 Aarhus C<br />
+        	Denmark
+        ]]>
+    </string>
+</resources>
