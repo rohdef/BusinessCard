@@ -1,7 +1,9 @@
 package dk.rohdef.rohdeBusinessCard.model;
 
+import dk.rohdef.rohdeBusinessCard.IHasId;
 
-public class Person {
+
+public class Person implements IHasId {
 	private String firstName, lastName, address, city, phone;
 	private String email;
 	private int postal;
@@ -47,5 +49,9 @@ public class Person {
 	}
 	public void setPostal(int postal) {
 		this.postal = postal;
+	}
+	@Override
+	public String getId() {
+		return email;
 	}
 }

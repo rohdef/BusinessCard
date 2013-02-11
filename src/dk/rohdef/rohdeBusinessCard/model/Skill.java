@@ -1,10 +1,29 @@
 package dk.rohdef.rohdeBusinessCard.model;
 
+import dk.rohdef.rohdeBusinessCard.IHasId;
 
-public class Skill {
-	private int id;
-	
+
+public class Skill implements IHasId{
 	private String name, description;
-	
-	private Project project;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	@Override
+	public String getId() {
+		return name;
+	}
 }

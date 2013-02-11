@@ -1,6 +1,64 @@
 package dk.rohdef.rohdeBusinessCard;
 
-public class DatabaseHelper {
+import java.util.HashMap;
+import java.util.Map;
+
+import com.google.gson.Gson;
+
+import dk.rohdef.rohdeBusinessCard.model.Person;
+import dk.rohdef.rohdeBusinessCard.model.Project;
+import dk.rohdef.rohdeBusinessCard.model.Skill;
+
+public class DataHelper {
+	private HashMap<String, Project> projectMap;
+	private HashMap<String, Person> referenceMap;
+	private HashMap<String, Skill> skillMap;
+	private Gson gson = new Gson();
+	
+	public Person getContactDetails() {
+		return null;
+	}
+	
+	public Map<String, Person> getReferences() {
+		return null;
+	}
+	
+	public Map<String, Project> getProjects() {
+		return null;
+	}
+	
+	public Map<String, Skill> getSkills() {
+		if (skillMap == null) {
+			skillMap = generateMapResourceMap("http://?", "skills.json", Skill[].class);
+		}
+		
+		return skillMap;
+	}
+	
+	private <T extends IHasId> HashMap<String, T> generateMapResourceMap(String url, String file, Class<T[]> klass) {
+		String json = getJsonData(url, file);
+		T[] tArray = gson.fromJson(json, klass);
+		
+		HashMap<String, T> tMap = generateMap(tArray);
+		
+		return tMap;
+	}
+	
+	private <T extends IHasId> HashMap<String, T> generateMap(T[] array) {
+		HashMap<String, T> tMap = new HashMap<String, T>();
+		
+		for (T t : array) {
+			tMap.put(t.getId(), t);
+		}
+		
+		return tMap;
+	}
+	
+	private String getJsonData(String url, String file) {
+		return null;
+	}
+	
+	
 	public void onCreate() {
 //		Person person = new Person();
 //		person.setFirstName("Rohde");
@@ -75,7 +133,7 @@ public class DatabaseHelper {
 //		proj.setTeamWork(TeamWork.team);
 //		projDao.create(proj);
 //		
-//		Log.i(DatabaseHelper.class.getName(),
+//		Log.i(DataHelper.class.getName(),
 //				"created new entries in onCreate");
 	}
 }

@@ -1,24 +1,19 @@
 package dk.rohdef.rohdeBusinessCard.model;
 
 import java.util.Date;
-import java.util.List;
 
-public class Project {
-	private int id;
-	
+import dk.rohdef.rohdeBusinessCard.IHasId;
+
+public class Project implements IHasId {
 	private String name, shortDecription, fullDescription;
 	private TeamWork teamWork;
 	private Date startDate, endDate;
-	private List<Skill> skills;
-	private List<Person> references;
+	private Skill[] skills;
+	private Person[] references;
 
 	public Project() {
 	}
 	
-	public int getId() {
-		return id;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -43,16 +38,12 @@ public class Project {
 		return endDate;
 	}
 
-	public List<Skill> getSkills() {
+	public Skill[] getSkills() {
 		return skills;
 	}
 
-	public List<Person> getReferences() {
+	public Person[] getReferences() {
 		return references;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public void setName(String name) {
@@ -79,11 +70,22 @@ public class Project {
 		this.endDate = endDate;
 	}
 
-	public void setSkills(List<Skill> skills) {
+	public void setSkills(Skill[] skills) {
 		this.skills = skills;
 	}
 
-	public void setReferences(List<Person> references) {
+	public void setReferences(Person[] references) {
 		this.references = references;
+	}
+
+	@Override
+	public String toString() {
+		return "Project [name=" + name + ", shortDecription=" + shortDecription
+				+ "]";
+	}
+
+	@Override
+	public String getId() {
+		return name;
 	}
 }
