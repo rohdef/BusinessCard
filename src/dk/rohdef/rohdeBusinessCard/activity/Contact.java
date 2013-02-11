@@ -1,5 +1,6 @@
 package dk.rohdef.rohdeBusinessCard.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -7,23 +8,17 @@ import android.text.Html;
 import android.text.Spanned;
 import android.view.View;
 import android.widget.TextView;
-
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
-import com.j256.ormlite.dao.RuntimeExceptionDao;
-
-import dk.rohdef.rohdeBusinessCard.DatabaseHelper;
 import dk.rohdef.rohdeBusinessCard.R;
 import dk.rohdef.rohdeBusinessCard.model.Person;
 
-public class Contact extends OrmLiteBaseActivity<DatabaseHelper> {
+public class Contact extends Activity {
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.contact);
 	    
-	    RuntimeExceptionDao<Person, String> dao = getHelper().getPersonDao();
-	    Person person = dao.queryForAll().get(0);
+	    Person person = null;
 	    
 	    TextView contactAddress = (TextView) findViewById(R.id.contactAddress);
 	    String contactAddressText = getString(R.string.contactAddress);

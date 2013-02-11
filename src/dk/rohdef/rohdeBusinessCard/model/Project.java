@@ -1,31 +1,16 @@
 package dk.rohdef.rohdeBusinessCard.model;
 
 import java.util.Date;
+import java.util.List;
 
-import com.j256.ormlite.dao.ForeignCollection;
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.field.ForeignCollectionField;
-import com.j256.ormlite.table.DatabaseTable;
-
-@DatabaseTable (tableName = "projects")
 public class Project {
-	@DatabaseField (generatedId=true)
 	private int id;
 	
-	@DatabaseField
 	private String name, shortDecription, fullDescription;
-	
-	@DatabaseField
 	private TeamWork teamWork;
-	
-	@DatabaseField
 	private Date startDate, endDate;
-	
-	@ForeignCollectionField
-	private ForeignCollection<Skill> skills;
-	
-	@ForeignCollectionField
-	private ForeignCollection<ReferencedPerson> references;
+	private List<Skill> skills;
+	private List<Person> references;
 
 	public Project() {
 	}
@@ -58,11 +43,11 @@ public class Project {
 		return endDate;
 	}
 
-	public ForeignCollection<Skill> getSkills() {
+	public List<Skill> getSkills() {
 		return skills;
 	}
 
-	public ForeignCollection<ReferencedPerson> getReferences() {
+	public List<Person> getReferences() {
 		return references;
 	}
 
@@ -94,11 +79,11 @@ public class Project {
 		this.endDate = endDate;
 	}
 
-	public void setSkills(ForeignCollection<Skill> skills) {
+	public void setSkills(List<Skill> skills) {
 		this.skills = skills;
 	}
 
-	public void setReferences(ForeignCollection<ReferencedPerson> references) {
+	public void setReferences(List<Person> references) {
 		this.references = references;
 	}
 }
