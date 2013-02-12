@@ -1,53 +1,87 @@
 package dk.rohdef.rohdeBusinessCard;
 
+import java.lang.reflect.Type;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import dk.rohdef.rohdeBusinessCard.model.Person;
 import dk.rohdef.rohdeBusinessCard.model.Project;
 import dk.rohdef.rohdeBusinessCard.model.Skill;
 
 public class DataHelper {
-	private HashMap<String, Project> projectMap;
-	private HashMap<String, Person> referenceMap;
-	private HashMap<String, Skill> skillMap;
+	private List<Project> projects;
+	private List<Skill> skills;
+	private List<Person> references;
+	
+	private Map<String, Project> projectMap;
+	private Map<String, Person> referenceMap;
+	private Map<String, Skill> skillMap;
 	private Gson gson = new Gson();
 	
 	public Person getContactDetails() {
 		return null;
 	}
 	
-	public Map<String, Person> getReferences() {
-		return null;
-	}
-	
-	public Map<String, Project> getProjects() {
-		return null;
-	}
-	
-	public Map<String, Skill> getSkills() {
-		if (skillMap == null) {
-			skillMap = generateMapResourceMap("http://?", "skills.json", Skill[].class);
+	private void ensureProjects() {
+		if (projectMap == null) {
+			Type projectType = new TypeToken<Collection<Project>>(){}.getType();
+			ArrayMapTouple<Project> projectsTouple = generateMapResourceMap("http://?", "projects.json", projectType);
+			projectMap = projectsTouple.tMap;
+			projects = projectsTouple.tList;
 		}
-		
+	}
+	public Map<String, Project> getProjectsMap() {
+		ensureProjects();
+		return projectMap;
+	}
+	public List<Project> getProjects() {
+		ensureProjects();
+		return projects;
+	}
+	
+	public Map<String, Person> getReferencesMap() {
+		return null;
+	}
+	public List<Person> getReferences() {
+		return references;
+	}
+	
+	private void ensureSkills() {
+		if (skillMap == null) {
+			Type skillType = new TypeToken<Collection<Skill>>(){}.getType();
+			ArrayMapTouple<Skill> skillsTouple = generateMapResourceMap("http://?", "skills.json", skillType); 
+			skillMap = skillsTouple.tMap;
+			skills = skillsTouple.tList;
+		}
+	}
+	public Map<String, Skill> getSkillsMap() {
+		ensureSkills();
 		return skillMap;
 	}
-	
-	private <T extends IHasId> HashMap<String, T> generateMapResourceMap(String url, String file, Class<T[]> klass) {
-		String json = getJsonData(url, file);
-		T[] tArray = gson.fromJson(json, klass);
-		
-		HashMap<String, T> tMap = generateMap(tArray);
-		
-		return tMap;
+	public List<Skill> getSkills() {
+		ensureSkills();
+		return skills;
 	}
 	
-	private <T extends IHasId> HashMap<String, T> generateMap(T[] array) {
+	private <T extends IHasId> ArrayMapTouple<T> generateMapResourceMap(String url, String file, Type type) {
+		String json = getJsonData(url, file);
+		
+		List<T> tList = gson.fromJson(json, type);
+		
+		HashMap<String, T> tMap = generateMap(tList);
+		
+		return new ArrayMapTouple<T>(tMap, tList);
+	}
+	
+	private <T extends IHasId> HashMap<String, T> generateMap(List<T> list) {
 		HashMap<String, T> tMap = new HashMap<String, T>();
 		
-		for (T t : array) {
+		for (T t : list) {
 			tMap.put(t.getId(), t);
 		}
 		
@@ -55,85 +89,50 @@ public class DataHelper {
 	}
 	
 	private String getJsonData(String url, String file) {
+		if (file.equals("projects.json")) {
+			String projectsJson = "[" +
+					"" +
+					"{\"name\":\"Klubhaeftet\"," +
+					"\"shortDescription\":\"Skidt\"," +
+					"\"fullDescription\":\"Meget meget skidt\"," +
+					"\"teamWork\":\"solo\"," +
+					"\"startDate\":null," +
+					"\"endDate\":null," +
+					"\"skills\":[]," +
+					"\"references\":[]}," +
+					
+					"{\"name\":\"Proj 2\"," +
+					"\"shortDescription\":\"Godt\"," +
+					"\"fullDescription\":\"Juhuu det var rart\"," +
+					"\"teamWork\":\"solo\"," +
+					"\"startDate\":null," +
+					"\"endDate\":null," +
+					"\"skills\":[]," +
+					"\"references\":[]}," +
+					
+					"{\"name\":\"Livet\"," +
+					"\"shortDescription\":\"Interessant\"," +
+					"\"fullDescription\":\"Der sker saa meget baade godt og skidt\"," +
+					"\"teamWork\":\"solo\"," +
+					"\"startDate\":null," +
+					"\"endDate\":null," +
+					"\"skills\":[]," +
+					"\"references\":[]}]";
+			
+			return projectsJson;
+		}
+		
 		return null;
 	}
 	
-	
-	public void onCreate() {
-//		Person person = new Person();
-//		person.setFirstName("Rohde");
-//		person.setLastName("Fischer");
-//		person.setAddress("Kirkegårdsvej 10 D, 3.-3");
-//		person.setPostal(8000);
-//		person.setCity("Aarhus");
-//		person.setEmail("rohdef@rohdef.dk");
-//		person.setPhone("21680621");
-//		
-//		persDao.create(person);
-//		
-//		ReferencedPerson pers;
-//		Project proj;
-//		ForeignCollection<ReferencedPerson> referencesCollection;
-//		ForeignCollection<Skill> skillCollection;
-//
-//		proj = new Project();
-//		proj.setName("Klubhaeftet");
-//		proj.setShortDecription("En mobil udgave af Klubhaeftet");
-//		proj.setFullDescription("Meget meget lang beskrivelse, der fortaeller den var en bitch uden at sige det direkte.");
-//		
-//		referencesCollection = projDao.getEmptyForeignCollection("referenced_person");
-//		
-//		pers = new ReferencedPerson();
-//		pers.setFirstName("Jan");
-//		pers.setLastName("Schoubo");
-//		pers.setPostal(8600);
-//		pers.setCity("Skanderborg");
-//		pers.setEmail("jan@schoubo.dk");
-//		pers.setPhone("22668899");
-//		referencesCollection.add(pers);
-//		
-//		pers = new ReferencedPerson();
-//		pers.setFirstName("Kirsten");
-//		pers.setLastName("Schoubo");
-//		pers.setPostal(8600);
-//		pers.setCity("Skanderborg");
-//		pers.setEmail("kirsten@schoubo.dk");
-//		pers.setPhone("33221144");
-//		referencesCollection.add(pers);
-//		
-//		proj.setReferences(referencesCollection);
-//		
-//		skillCollection = projDao.getEmptyForeignCollection("skills");
-//		
-//		
-//		proj.setSkills(skillCollection);
-//		
-//		proj.setTeamWork(TeamWork.halfhalf);
-//		projDao.create(proj);
-//		
-//		proj = new Project();
-//		proj.setName("Writing phonegap plugins");
-//		proj.setShortDecription("Foredrag i Amsterdam");
-//		proj.setFullDescription("Saadan laver man plugins til PhoneGap. Tag en hammer, slaa Peter, skrig av!");
-//		referencesCollection = projDao.getEmptyForeignCollection("referenced_person");
-//		proj.setReferences(referencesCollection);
-//		skillCollection = projDao.getEmptyForeignCollection("skills");
-//		proj.setSkills(skillCollection);
-//		proj.setTeamWork(TeamWork.solo);
-//		projDao.create(proj);
-//		
-//		proj = new Project();
-//		proj.setName("Hjaelperadministrationen");
-//		proj.setShortDecription("Man skal huske\"");
-//		proj.setFullDescription("Handicappede lider, hvor er det synd. BUF!");
-//		referencesCollection = projDao.getEmptyForeignCollection("referenced_person");
-//		proj.setReferences(referencesCollection);
-//		skillCollection = projDao.getEmptyForeignCollection("skills");
-//		proj.setSkills(skillCollection);
-//		proj.setTeamWork(TeamWork.team);
-//		projDao.create(proj);
-//		
-//		Log.i(DataHelper.class.getName(),
-//				"created new entries in onCreate");
+	private class ArrayMapTouple<T extends IHasId> {
+		Map<String, T> tMap;
+		List<T> tList;
+		
+		public ArrayMapTouple(Map<String, T> tMap, List<T> tList) {
+			super();
+			this.tMap = tMap;
+			this.tList = tList;
+		}
 	}
 }

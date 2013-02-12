@@ -20,9 +20,6 @@ public class ProjectsAdapter extends BaseExpandableListAdapter {
 		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		
 		this.projects = projects;
-		
-		System.out.println("P isze: " + projects.size());
-		System.out.println(projects);
 	}
 	
 	@Override

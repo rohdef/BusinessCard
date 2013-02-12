@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Display;
 import android.widget.ExpandableListView;
+import dk.rohdef.rohdeBusinessCard.DataHelper;
 import dk.rohdef.rohdeBusinessCard.ProjectsAdapter;
 import dk.rohdef.rohdeBusinessCard.R;
 import dk.rohdef.rohdeBusinessCard.model.Project;
@@ -16,7 +17,7 @@ public class Projects extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.projects);
 		
-		List<Project> projects = null;
+		List<Project> projects = new DataHelper().getProjects();
 
 		ProjectsAdapter adapter = new ProjectsAdapter(this, projects);
 		ExpandableListView list = (ExpandableListView) findViewById(R.id.expandableListView1);
