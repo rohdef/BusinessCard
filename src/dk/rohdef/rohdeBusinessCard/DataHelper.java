@@ -21,7 +21,13 @@ import com.google.gson.reflect.TypeToken;
 import dk.rohdef.rohdeBusinessCard.model.Person;
 import dk.rohdef.rohdeBusinessCard.model.Project;
 import dk.rohdef.rohdeBusinessCard.model.Skill;
-
+/**
+ * Provides access to the date from parsed json files. Parts of this solution is a dirty solution.
+ * But chosen to avoid having multiple layers of database work to create the more correct solution.
+ * This will probably be ammended in a future version.
+ *  
+ * @author Rohde Fischer
+ */
 public class DataHelper {
 	private Activity parentActivity;
 
@@ -61,10 +67,20 @@ public class DataHelper {
 		return projects;
 	}
 	
+	private void ensureReferences() {
+		if (referenceMap == null) {
+			Type projectType = new TypeToken<Collection<Person>>(){}.getType();
+			ArrayMapTouple<Person> referencesTouple = generateMapResourceMap("http://?", "references.json", projectType);
+			referenceMap = referencesTouple.tMap;
+			references = referencesTouple.tList;
+		}
+	}
 	public Map<String, Person> getReferencesMap() {
-		return null;
+		ensureReferences();
+		return referenceMap;
 	}
 	public List<Person> getReferences() {
+		ensureReferences();
 		return references;
 	}
 	
