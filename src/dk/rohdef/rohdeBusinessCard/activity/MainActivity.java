@@ -41,8 +41,6 @@ public class MainActivity extends Activity {
 	}
 	
 	private void initialize() {
-		int i;
-		byte[] readData = new byte[1024*500];
 		FileOutputStream fos;
 		InputStream fis;
 		

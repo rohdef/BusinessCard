@@ -121,7 +121,7 @@ public class DataHelper {
 			e.printStackTrace();
 		}
 		
-		return "";
+		return json;
 	}
 	
 	private class ArrayMapTouple<T extends IHasId> {

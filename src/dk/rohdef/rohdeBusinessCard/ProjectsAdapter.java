@@ -79,7 +79,7 @@ public class ProjectsAdapter extends BaseExpandableListAdapter {
 		headingTextView.setText(project.getName());
 		
 		TextView bylineTextView = (TextView) convertView.findViewById(R.id.projectDetailsByline);
-		bylineTextView.setText(project.getShortDecription());
+		bylineTextView.setText(project.getShortDescription());
 		
 		return convertView;
 	}

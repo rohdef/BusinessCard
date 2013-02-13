@@ -5,7 +5,7 @@ import java.util.Date;
 import dk.rohdef.rohdeBusinessCard.IHasId;
 
 public class Project implements IHasId {
-	private String name, shortDecription, fullDescription;
+	private String name, shortDescription, fullDescription;
 	private TeamWork teamWork;
 	private Date startDate, endDate;
 	private Skill[] skills;
@@ -18,8 +18,8 @@ public class Project implements IHasId {
 		return name;
 	}
 
-	public String getShortDecription() {
-		return shortDecription;
+	public String getShortDescription() {
+		return shortDescription;
 	}
 
 	public String getFullDescription() {
@@ -50,8 +50,8 @@ public class Project implements IHasId {
 		this.name = name;
 	}
 
-	public void setShortDecription(String shortDecription) {
-		this.shortDecription = shortDecription;
+	public void setShortDescription(String shortDescription) {
+		this.shortDescription = shortDescription;
 	}
 
 	public void setFullDescription(String fullDescription) {
@@ -80,7 +80,7 @@ public class Project implements IHasId {
 
 	@Override
 	public String toString() {
-		return "Project [name=" + name + ", shortDecription=" + shortDecription
+		return "Project [name=" + name + ", shortDecription=" + shortDescription
 				+ "]";
 	}
 
