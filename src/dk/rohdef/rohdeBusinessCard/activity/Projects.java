@@ -17,7 +17,7 @@ public class Projects extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.projects);
 		
-		List<Project> projects = new DataHelper().getProjects();
+		List<Project> projects = new DataHelper(this).getProjects();
 
 		ProjectsAdapter adapter = new ProjectsAdapter(this, projects);
 		ExpandableListView list = (ExpandableListView) findViewById(R.id.expandableListView1);

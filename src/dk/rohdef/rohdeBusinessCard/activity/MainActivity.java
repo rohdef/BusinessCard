@@ -1,42 +1,72 @@
 package dk.rohdef.rohdeBusinessCard.activity;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.io.IOUtils;
+
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import dk.rohdef.rohdeBusinessCard.DataHelper;
 import dk.rohdef.rohdeBusinessCard.R;
 
 public class MainActivity extends Activity {
+	private static final String FIRST_RUN = "firstRun";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
 		
-//		Gson gson = new Gson();
-//		Project[] projects = gson.fromJson(projectsJson, Project[].class);
-//		
-//		String referencesJson = "";
-//		Person[] references = gson.fromJson(referencesJson, Person[].class);
-//		
-//		String skillsJson = "";
-//		Skill[] skills = gson.fromJson(skillsJson, Skill[].class);
-//		
-//		HashMap<String, Project> projectMap = new HashMap<String, Project>();
-//		HashMap<String, Person> referenceMap = new HashMap<String, Person>();
-//		HashMap<String, Skill> skillMap = new HashMap<String, Skill>();
-//		
-//		for (Project project : projects) {
-//			projectMap.put(project.getName(), project);
-//		}
-//		
-//		for (Person reference : references) {
-//			referenceMap.put(reference.getEmail(), reference);
-//		}
-//		
-//		for (Skill skill : skills) {
-//			skillMap.put(skill.getName(), skill);
-//		}
+		SharedPreferences firstRun = getSharedPreferences(FIRST_RUN, 0);
+		boolean firstTimeRunning = firstRun.getBoolean(FIRST_RUN, true);
+		if (firstTimeRunning) {
+			initialize();
+			SharedPreferences.Editor editor = firstRun.edit();
+			editor.putBoolean(FIRST_RUN, false);
+			editor.commit();
+		}
+		
+		new DataHelper(this).getContactDetails();
+		
+		setContentView(R.layout.activity_main);
+	}
+	
+	private void initialize() {
+		int i;
+		byte[] readData = new byte[1024*500];
+		FileOutputStream fos;
+		InputStream fis;
+		
+		HashMap<String, Integer> resources = new HashMap<String, Integer>();
+		resources.put("contact.json", R.raw.contact);
+		resources.put("projects.json", R.raw.projects);
+		resources.put("skills.json", R.raw.skills);
+		resources.put("references.json", R.raw.references);
+		
+		for (Map.Entry<String, Integer> entry : resources.entrySet()) {
+			try {
+				fos = openFileOutput(entry.getKey(), Context.MODE_PRIVATE);
+				fis = getResources().openRawResource(entry.getValue());
+				
+				IOUtils.copy(fis, fos);
+				
+				fos.close();
+				fis.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@Override

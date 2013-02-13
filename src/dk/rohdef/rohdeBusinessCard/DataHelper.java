@@ -1,10 +1,19 @@
 package dk.rohdef.rohdeBusinessCard;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.io.IOUtils;
+
+import android.app.Activity;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -14,6 +23,8 @@ import dk.rohdef.rohdeBusinessCard.model.Project;
 import dk.rohdef.rohdeBusinessCard.model.Skill;
 
 public class DataHelper {
+	private Activity parentActivity;
+
 	private List<Project> projects;
 	private List<Skill> skills;
 	private List<Person> references;
@@ -23,7 +34,13 @@ public class DataHelper {
 	private Map<String, Skill> skillMap;
 	private Gson gson = new Gson();
 	
+	public DataHelper(Activity parentActivity) {
+		super();
+		this.parentActivity = parentActivity;
+	}
+	
 	public Person getContactDetails() {
+		getJsonData("", "contact.json");
 		return null;
 	}
 	
@@ -89,40 +106,22 @@ public class DataHelper {
 	}
 	
 	private String getJsonData(String url, String file) {
-		if (file.equals("projects.json")) {
-			String projectsJson = "[" +
-					"" +
-					"{\"name\":\"Klubhaeftet\"," +
-					"\"shortDescription\":\"Skidt\"," +
-					"\"fullDescription\":\"Meget meget skidt\"," +
-					"\"teamWork\":\"solo\"," +
-					"\"startDate\":null," +
-					"\"endDate\":null," +
-					"\"skills\":[]," +
-					"\"references\":[]}," +
-					
-					"{\"name\":\"Proj 2\"," +
-					"\"shortDescription\":\"Godt\"," +
-					"\"fullDescription\":\"Juhuu det var rart\"," +
-					"\"teamWork\":\"solo\"," +
-					"\"startDate\":null," +
-					"\"endDate\":null," +
-					"\"skills\":[]," +
-					"\"references\":[]}," +
-					
-					"{\"name\":\"Livet\"," +
-					"\"shortDescription\":\"Interessant\"," +
-					"\"fullDescription\":\"Der sker saa meget baade godt og skidt\"," +
-					"\"teamWork\":\"solo\"," +
-					"\"startDate\":null," +
-					"\"endDate\":null," +
-					"\"skills\":[]," +
-					"\"references\":[]}]";
+		String json = "";
+		try {
+			StringWriter writer = new StringWriter();
+			InputStream in = parentActivity.openFileInput(file);
+			IOUtils.copy(in, writer);
 			
-			return projectsJson;
+			json = writer.toString();
+			Log.d("DataHelper", json);
+			in.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		
-		return null;
+		return "";
 	}
 	
 	private class ArrayMapTouple<T extends IHasId> {
