@@ -21,6 +21,7 @@ import dk.rohdef.rohdeBusinessCard.R;
 
 public class MainActivity extends Activity {
 	private static final String FIRST_RUN = "firstRun";
+	private DataHelper dataHelper;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +35,9 @@ public class MainActivity extends Activity {
 			editor.putBoolean(FIRST_RUN, false);
 			editor.commit();
 		}
-		
-		new DataHelper(this).getContactDetails();
+		DataHelper.initiate(this);
+		// Prevent garbage collection
+		this.dataHelper = DataHelper.getInstance();
 		
 		setContentView(R.layout.activity_main);
 	}

@@ -5,6 +5,8 @@ import dk.rohdef.rohdeBusinessCard.IHasId;
 
 public class Skill implements IHasId{
 	private String name, description;
+	private SkillType skillType;
+	private String[] projects;
 
 	public String getName() {
 		return name;

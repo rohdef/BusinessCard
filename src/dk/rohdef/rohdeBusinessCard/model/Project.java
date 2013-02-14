@@ -8,8 +8,8 @@ public class Project implements IHasId {
 	private String name, shortDescription, fullDescription;
 	private TeamWork teamWork;
 	private Date startDate, endDate;
-	private Skill[] skills;
-	private Person[] references;
+	private String[] skills;
+	private String[] references;
 
 	public Project() {
 	}
@@ -38,11 +38,11 @@ public class Project implements IHasId {
 		return endDate;
 	}
 
-	public Skill[] getSkills() {
+	public String[] getSkills() {
 		return skills;
 	}
 
-	public Person[] getReferences() {
+	public String[] getReferences() {
 		return references;
 	}
 
@@ -70,11 +70,11 @@ public class Project implements IHasId {
 		this.endDate = endDate;
 	}
 
-	public void setSkills(Skill[] skills) {
+	public void setSkills(String[] skills) {
 		this.skills = skills;
 	}
 
-	public void setReferences(Person[] references) {
+	public void setReferences(String[] references) {
 		this.references = references;
 	}
 

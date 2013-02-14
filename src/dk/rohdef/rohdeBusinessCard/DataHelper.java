@@ -16,6 +16,7 @@ import android.app.Activity;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import dk.rohdef.rohdeBusinessCard.model.Person;
@@ -30,6 +31,7 @@ import dk.rohdef.rohdeBusinessCard.model.Skill;
  */
 public class DataHelper {
 	private Activity parentActivity;
+	private static DataHelper instance;
 
 	private List<Project> projects;
 	private List<Skill> skills;
@@ -38,11 +40,31 @@ public class DataHelper {
 	private Map<String, Project> projectMap;
 	private Map<String, Person> referenceMap;
 	private Map<String, Skill> skillMap;
-	private Gson gson = new Gson();
+	private Gson gson;
 	
-	public DataHelper(Activity parentActivity) {
+	private DataHelper(Activity parentActivity) {
 		super();
+		
+		this.gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		this.parentActivity = parentActivity;
+	}
+	
+	public static DataHelper getInstance() {
+		if (instance == null) {
+			throw new RuntimeException("Initiate have not been called.");
+		}
+		
+		return instance;
+	}
+	
+	public static void initiate(Activity parentActivity) {
+		if (instance == null) {
+			instance = new DataHelper(parentActivity);
+			
+			instance.ensureReferences();
+			instance.ensureSkills();
+			instance.ensureProjects();
+		}
 	}
 	
 	public Person getContactDetails() {
@@ -59,28 +81,24 @@ public class DataHelper {
 		}
 	}
 	public Map<String, Project> getProjectsMap() {
-		ensureProjects();
 		return projectMap;
 	}
 	public List<Project> getProjects() {
-		ensureProjects();
 		return projects;
 	}
 	
 	private void ensureReferences() {
 		if (referenceMap == null) {
-			Type projectType = new TypeToken<Collection<Person>>(){}.getType();
-			ArrayMapTouple<Person> referencesTouple = generateMapResourceMap("http://?", "references.json", projectType);
+			Type personType = new TypeToken<Collection<Person>>(){}.getType();
+			ArrayMapTouple<Person> referencesTouple = generateMapResourceMap("http://?", "references.json", personType);
 			referenceMap = referencesTouple.tMap;
 			references = referencesTouple.tList;
 		}
 	}
 	public Map<String, Person> getReferencesMap() {
-		ensureReferences();
 		return referenceMap;
 	}
 	public List<Person> getReferences() {
-		ensureReferences();
 		return references;
 	}
 	
@@ -93,11 +111,9 @@ public class DataHelper {
 		}
 	}
 	public Map<String, Skill> getSkillsMap() {
-		ensureSkills();
 		return skillMap;
 	}
 	public List<Skill> getSkills() {
-		ensureSkills();
 		return skills;
 	}
 	
