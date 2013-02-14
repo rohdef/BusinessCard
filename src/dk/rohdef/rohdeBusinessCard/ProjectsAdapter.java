@@ -7,17 +7,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.LinearLayout.LayoutParams;
 import dk.rohdef.rohdeBusinessCard.model.Project;
 
 public class ProjectsAdapter extends BaseExpandableListAdapter {
 	private List<Project> projects;
 	private LayoutInflater inflater;
+	private Context context;
 	
 	public ProjectsAdapter(Context context, List<Project> projects) {
 		super();
 		
 		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		this.context = context;
 		
 		this.projects = projects;
 	}
@@ -42,6 +47,22 @@ public class ProjectsAdapter extends BaseExpandableListAdapter {
 		
 		TextView detailsText = (TextView) convertView.findViewById(R.id.projectDetailsText);
 		detailsText.setText(project.getFullDescription());
+		
+		LinearLayout skillsLayout = (LinearLayout) convertView.findViewById(R.id.skillsLayout);
+		LinearLayout.LayoutParams buttonLayout = new LinearLayout.LayoutParams(
+				LinearLayout.LayoutParams.WRAP_CONTENT,
+				LinearLayout.LayoutParams.WRAP_CONTENT);
+		
+		Button skillButton;
+		
+		for (String skill : project.getSkills()) {
+			skillButton = new Button(this.context);
+			skillButton.setLayoutParams(buttonLayout);
+			skillButton.setBackgroundResource(R.drawable.technical_button);
+			skillButton.setText(skill);
+			
+			skillsLayout.addView(skillButton);
+		}
 		
 		return convertView;
 	}
