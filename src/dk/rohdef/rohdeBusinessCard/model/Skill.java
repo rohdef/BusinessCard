@@ -6,6 +6,14 @@ import dk.rohdef.rohdeBusinessCard.IHasId;
 public class Skill implements IHasId{
 	private String name, description;
 	private SkillType skillType;
+	public SkillType getSkillType() {
+		return skillType;
+	}
+
+	public void setSkillType(SkillType skillType) {
+		this.skillType = skillType;
+	}
+
 	private String[] projects;
 
 	public String getName() {

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="myColorrrr">#F5F5F5</color>
+    <color name="skill_technical">#9fe69f</color>
+    <color name="skill_methodology">#5dd4d2</color>
+    <color name="skill_tool">#d9d37a</color>
+    <color name="skill_personal">#ca4454</color>
 </resources>

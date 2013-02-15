@@ -1,8 +1,12 @@
 package dk.rohdef.rohdeBusinessCard;
 
 import java.util.List;
+import java.util.Map;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.PorterDuff.Mode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +14,9 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.LinearLayout.LayoutParams;
 import dk.rohdef.rohdeBusinessCard.model.Project;
+import dk.rohdef.rohdeBusinessCard.model.Skill;
+import dk.rohdef.rohdeBusinessCard.model.SkillType;
 
 public class ProjectsAdapter extends BaseExpandableListAdapter {
 	private List<Project> projects;
@@ -54,13 +59,34 @@ public class ProjectsAdapter extends BaseExpandableListAdapter {
 				LinearLayout.LayoutParams.WRAP_CONTENT);
 		
 		Button skillButton;
+		Skill realSkill;;
+		Map<String, Skill> skillsMap = DataHelper.getInstance().getSkillsMap();
 		
 		for (String skill : project.getSkills()) {
+			realSkill = skillsMap.get(skill); 
+			
 			skillButton = new Button(this.context);
 			skillButton.setLayoutParams(buttonLayout);
 			skillButton.setBackgroundResource(R.drawable.technical_button);
-			skillButton.setText(skill);
 			
+			Resources resources = context.getResources();
+			int color;
+			
+			SkillType skillType = realSkill.getSkillType();
+			if (skillType == SkillType.methodology) {
+				color = resources.getColor(R.color.skill_methodology);
+			} else if (skillType == SkillType.technical) {
+				color = resources.getColor(R.color.skill_technical);
+			} else if (skillType == SkillType.tool) {
+				color = resources.getColor(R.color.skill_tool);
+			} else if (skillType == SkillType.personal) {
+				color = resources.getColor(R.color.skill_personal);
+			} else {
+				color = Color.WHITE;
+			}
+			
+			skillButton.getBackground().setColorFilter(color, Mode.MULTIPLY);
+			skillButton.setText(realSkill.getName());
 			skillsLayout.addView(skillButton);
 		}
 		
