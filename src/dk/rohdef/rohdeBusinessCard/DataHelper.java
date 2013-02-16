@@ -68,8 +68,10 @@ public class DataHelper {
 	}
 	
 	public Person getContactDetails() {
-		getJsonData("", "contact.json");
-		return null;
+		String json = getJsonData("", "contact.json");
+		Person person = gson.fromJson(json, Person.class);
+		
+		return person;
 	}
 	
 	private void ensureProjects() {

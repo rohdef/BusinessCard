@@ -8,6 +8,7 @@ import android.text.Html;
 import android.text.Spanned;
 import android.view.View;
 import android.widget.TextView;
+import dk.rohdef.rohdeBusinessCard.DataHelper;
 import dk.rohdef.rohdeBusinessCard.R;
 import dk.rohdef.rohdeBusinessCard.model.Person;
 
@@ -18,7 +19,7 @@ public class Contact extends Activity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.contact);
 	    
-	    Person person = null;
+	    Person person = DataHelper.getInstance().getContactDetails();
 	    
 	    TextView contactAddress = (TextView) findViewById(R.id.contactAddress);
 	    String contactAddressText = getString(R.string.contactAddress);

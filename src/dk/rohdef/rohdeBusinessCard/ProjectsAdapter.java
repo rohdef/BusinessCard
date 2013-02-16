@@ -47,8 +47,11 @@ public class ProjectsAdapter extends BaseExpandableListAdapter {
 			boolean isLastChild, View convertView, ViewGroup parent) {
 		Project project = (Project) getChild(groupPosition, childPosition);
 		
-		if (convertView == null)
+		if (convertView == null) {
 			convertView = inflater.inflate(R.layout.project_view_details, null);
+		} else {
+			return convertView;
+		}
 		
 		TextView detailsText = (TextView) convertView.findViewById(R.id.projectDetailsText);
 		detailsText.setText(project.getFullDescription());
