@@ -25,11 +25,10 @@ public class ProjectsAdapter extends BaseExpandableListAdapter {
 	
 	public ProjectsAdapter(Context context, List<Project> projects) {
 		super();
+		this.context = context;
+		this.projects = projects;
 		
 		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		this.context = context;
-		
-		this.projects = projects;
 	}
 	
 	@Override

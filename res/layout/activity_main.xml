@@ -41,7 +41,8 @@
             android:text="@string/skillsButton"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp" />
+            android:layout_margin="10dp"
+            android:onClick="onSkillsClick" />
         
         <Button
             android:id="@+id/contactButton"

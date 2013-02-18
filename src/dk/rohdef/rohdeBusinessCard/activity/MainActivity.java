@@ -85,4 +85,9 @@ public class MainActivity extends Activity {
 		Intent intent = new Intent(projectsButton.getContext(), Projects.class);
 		startActivity(intent);
 	}
+	
+	public void onSkillsClick(View skillsButton) {
+		Intent intent = new Intent(skillsButton.getContext(), Skills.class);
+		startActivity(intent);
+	}
 }
