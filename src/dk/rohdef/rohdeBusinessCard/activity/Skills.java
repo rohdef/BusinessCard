@@ -2,13 +2,15 @@ package dk.rohdef.rohdeBusinessCard.activity;
 
 import java.util.List;
 
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Display;
+import android.widget.ExpandableListView;
 import dk.rohdef.rohdeBusinessCard.DataHelper;
+import dk.rohdef.rohdeBusinessCard.Helpers;
 import dk.rohdef.rohdeBusinessCard.R;
 import dk.rohdef.rohdeBusinessCard.SkillsAdapter;
 import dk.rohdef.rohdeBusinessCard.model.Skill;
-import android.app.Activity;
-import android.os.Bundle;
-import android.widget.ListView;
 
 public class Skills extends Activity {
 	@Override
@@ -19,7 +21,12 @@ public class Skills extends Activity {
 		List<Skill> skills = DataHelper.getInstance().getSkills();
 		
 		SkillsAdapter adapter = new SkillsAdapter(this, skills);
-		ListView skillsList = (ListView) findViewById(R.id.skillsList);
+		ExpandableListView skillsList = (ExpandableListView) findViewById(R.id.skillsList);
 		skillsList.setAdapter(adapter);
+		
+		Display newDisplay = getWindowManager().getDefaultDisplay(); 
+		int width = newDisplay.getWidth();
+		skillsList.setIndicatorBounds(width-Helpers.getDipsFromPixel(35, getResources()),
+				width-Helpers.getDipsFromPixel(5, getResources()));
 	}
 }

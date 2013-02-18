@@ -33,7 +33,7 @@ public class ProjectsAdapter extends BaseExpandableListAdapter {
 	
 	@Override
 	public Object getChild(int groupPosition, int childPosition) {
-		return projects.get(groupPosition);
+		return getGroup(groupPosition);
 	}
 
 	@Override

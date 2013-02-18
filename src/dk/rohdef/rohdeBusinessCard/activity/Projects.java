@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Display;
 import android.widget.ExpandableListView;
 import dk.rohdef.rohdeBusinessCard.DataHelper;
+import dk.rohdef.rohdeBusinessCard.Helpers;
 import dk.rohdef.rohdeBusinessCard.ProjectsAdapter;
 import dk.rohdef.rohdeBusinessCard.R;
 import dk.rohdef.rohdeBusinessCard.model.Project;
@@ -20,18 +21,12 @@ public class Projects extends Activity {
 		List<Project> projects = DataHelper.getInstance().getProjects();
 
 		ProjectsAdapter adapter = new ProjectsAdapter(this, projects);
-		ExpandableListView list = (ExpandableListView) findViewById(R.id.expandableListView1);
+		ExpandableListView list = (ExpandableListView) findViewById(R.id.projectsListView);
 		list.setAdapter(adapter);
 		
 		Display newDisplay = getWindowManager().getDefaultDisplay(); 
 		int width = newDisplay.getWidth();
-		list.setIndicatorBounds(width-getDipsFromPixel(35), width-getDipsFromPixel(5));
-	}
-
-	public int getDipsFromPixel(float pixels) {
-		// Get the screen's density scale
-		final float scale = getResources().getDisplayMetrics().density;
-		// Convert the dps to pixels, based on density scale
-		return (int) (pixels * scale + 0.5f);
+		list.setIndicatorBounds(width-Helpers.getDipsFromPixel(35, getResources()),
+				width-Helpers.getDipsFromPixel(5, getResources()));
 	}
 }

@@ -4,10 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <ListView
+    <ExpandableListView
         android:id="@+id/skillsList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </ListView>
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scrollbars="none"
+        android:groupIndicator="@drawable/rf_expander_group" >
+    </ExpandableListView>
 
 </LinearLayout>
