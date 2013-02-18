@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import dk.rohdef.rohdeBusinessCard.DataHelper;
 import dk.rohdef.rohdeBusinessCard.R;
@@ -27,20 +28,30 @@ public class Contact extends Activity {
 	    		person.getFirstName(),
 	    		person.getLastName());
 	    
+	    Button callButton = (Button) findViewById(R.id.contactPhoneButton);
+	    callButton.setText(person.getPhone());
+	    
+	    Button emailButton = (Button) findViewById(R.id.contactMailButton);
+	    emailButton.setText(person.getEmail());
+	    
 	    Spanned formattedAddress = Html.fromHtml(contactAddressText);
 	    contactAddress.setText(formattedAddress);
 	}
 	
 	public void contactMailClicked(View view) {
+		Button emailButton = (Button) view;
+		
 		Intent callIntent  = new Intent(Intent.ACTION_SENDTO);
-		callIntent.setData(Uri.parse("mailto:rohdef@rohdef.dk"));
+		callIntent.setData(Uri.parse("mailto:" + emailButton.getText()));
 		startActivity(callIntent);
 		
 	}
 	
 	public void contactPhoneClicked(View view) {
+		Button callButton = (Button) view;
+		
 		Intent callIntent  = new Intent(Intent.ACTION_VIEW);
-		callIntent.setData(Uri.parse("tel:21680621"));
+		callIntent.setData(Uri.parse("tel:" + callButton.getText()));
 		startActivity(callIntent);
 	}
 }

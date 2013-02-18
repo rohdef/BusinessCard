@@ -19,8 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:drawableLeft="@drawable/ic_menu_call"
-            android:onClick="contactPhoneClicked"
-            android:text="2168 0621" />
+            android:onClick="contactPhoneClicked" />
         
         <Button 
             android:id="@+id/contactMailButton"
@@ -28,8 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:drawableLeft="@drawable/ic_menu_mail"
-            android:onClick="contactMailClicked"
-            android:text="rohdef@rohdef.dk" />
+            android:onClick="contactMailClicked" />
 
     </LinearLayout>
 </ScrollView>
