@@ -46,12 +46,10 @@ public class ProjectsAdapter extends BaseExpandableListAdapter {
 	public View getChildView(int groupPosition, int childPosition,
 			boolean isLastChild, View convertView, ViewGroup parent) {
 		Project project = (Project) getChild(groupPosition, childPosition);
+		convertView = inflater.inflate(R.layout.project_view_details, null);
 		
-		if (convertView == null) {
-			convertView = inflater.inflate(R.layout.project_view_details, null);
-		} else {
-			return convertView;
-		}
+		if (groupPosition%2 == 0)
+			convertView.setBackgroundColor(Color.LTGRAY);
 		
 		TextView detailsText = (TextView) convertView.findViewById(R.id.projectDetailsText);
 		detailsText.setText(project.getFullDescription());
@@ -121,9 +119,10 @@ public class ProjectsAdapter extends BaseExpandableListAdapter {
 	public View getGroupView(int groupPosition, boolean isExpanded,
 			View convertView, ViewGroup parent) {
 		Project project = (Project) getGroup(groupPosition);
+		convertView = inflater.inflate(R.layout.project_view_short, null);
 		
-		if (convertView == null)
-			convertView = inflater.inflate(R.layout.project_view_short, null);
+		if (groupPosition%2 == 0)
+			convertView.setBackgroundColor(Color.LTGRAY);
 		
 		TextView headingTextView = (TextView) convertView.findViewById(R.id.projectDetailsHeading);
 		headingTextView.setText(project.getName());
