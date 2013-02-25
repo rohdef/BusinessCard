@@ -10,8 +10,17 @@ public class Project implements IHasId {
 	private Date startDate, endDate;
 	private String[] skills;
 	private String[] references;
-
+	private Resource[] resources;
+	
 	public Project() {
+	}
+
+	public Resource[] getResources() {
+		return resources;
+	}
+
+	public void setResources(Resource[] resources) {
+		this.resources = resources;
 	}
 	
 	public String getName() {
