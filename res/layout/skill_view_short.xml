@@ -6,6 +6,7 @@
     
 	<TextView
 	    android:id="@+id/skill_name"
+	    android:drawableLeft="@drawable/skill_circle"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:textAppearance="?android:attr/textAppearanceLarge" />

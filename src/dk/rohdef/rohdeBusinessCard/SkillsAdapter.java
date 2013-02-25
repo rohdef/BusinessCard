@@ -4,6 +4,8 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.PorterDuff.Mode;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +16,12 @@ import dk.rohdef.rohdeBusinessCard.model.Skill;
 public class SkillsAdapter extends BaseExpandableListAdapter {
 	private List<Skill> skills;
 	private LayoutInflater inflater;
-//	private Context context;
+	private Context context;
 	
 	public SkillsAdapter(Context context, List<Skill> skills) {
 		super();
 		this.skills = skills;
-//		this.context = context;
+		this.context = context;
 		
 		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
@@ -52,6 +54,13 @@ public class SkillsAdapter extends BaseExpandableListAdapter {
 		TextView skillName = (TextView) convertView.findViewById(R.id.skill_name);
 		skillName.setText(skill.getName());
 		
+		int color = Helpers.getSkillColor(context, skill.getSkillType());
+		Drawable[] compoundDrawables = skillName.getCompoundDrawables();
+		for (Drawable compound : compoundDrawables) {
+			if (compound != null)
+				compound.setColorFilter(color, Mode.MULTIPLY);
+		}
+		
 		return convertView;
 	}
 
@@ -69,10 +78,14 @@ public class SkillsAdapter extends BaseExpandableListAdapter {
 	public View getChildView(int groupPosition, int childPosition,
 			boolean isLastChild, View convertView, ViewGroup parent) {
 		Skill skill = (Skill) getChild(groupPosition, childPosition);
-		convertView = inflater.inflate(R.layout.skill_view_details, null);
 		
+		convertView = inflater.inflate(R.layout.skill_view_details, null);
+
 		if (groupPosition%2 == 0)
 			convertView.setBackgroundColor(Color.LTGRAY);
+		
+		TextView skillDescription = (TextView) convertView.findViewById(R.id.skillDetails);
+		skillDescription.setText(skill.getDescription());
 		
 		return convertView;
 	}

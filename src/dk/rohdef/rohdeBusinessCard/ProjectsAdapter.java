@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff.Mode;
 import android.view.LayoutInflater;
@@ -16,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import dk.rohdef.rohdeBusinessCard.model.Project;
 import dk.rohdef.rohdeBusinessCard.model.Skill;
-import dk.rohdef.rohdeBusinessCard.model.SkillType;
 
 public class ProjectsAdapter extends BaseExpandableListAdapter {
 	private List<Project> projects;
@@ -69,21 +67,7 @@ public class ProjectsAdapter extends BaseExpandableListAdapter {
 			skillButton.setLayoutParams(buttonLayout);
 			skillButton.setBackgroundResource(R.drawable.technical_button);
 			
-			Resources resources = context.getResources();
-			int color;
-			
-			SkillType skillType = realSkill.getSkillType();
-			if (skillType == SkillType.methodology) {
-				color = resources.getColor(R.color.skill_methodology);
-			} else if (skillType == SkillType.technical) {
-				color = resources.getColor(R.color.skill_technical);
-			} else if (skillType == SkillType.tool) {
-				color = resources.getColor(R.color.skill_tool);
-			} else if (skillType == SkillType.personal) {
-				color = resources.getColor(R.color.skill_personal);
-			} else {
-				color = Color.WHITE;
-			}
+			int color = Helpers.getSkillColor(context, realSkill.getSkillType());
 			
 			skillButton.getBackground().setColorFilter(color, Mode.MULTIPLY);
 			skillButton.setText(realSkill.getName());
@@ -100,7 +84,6 @@ public class ProjectsAdapter extends BaseExpandableListAdapter {
 
 	@Override
 	public Object getGroup(int groupPosition) {
-		System.out.println("Get group: " + groupPosition);
 		return projects.get(groupPosition);
 	}
 
