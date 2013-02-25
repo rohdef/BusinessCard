@@ -13,6 +13,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import dk.rohdef.rohdeBusinessCard.layout.FlowLayout;
 import dk.rohdef.rohdeBusinessCard.model.Project;
 import dk.rohdef.rohdeBusinessCard.model.Skill;
 
@@ -51,10 +52,10 @@ public class ProjectsAdapter extends BaseExpandableListAdapter {
 		TextView detailsText = (TextView) convertView.findViewById(R.id.projectDetailsText);
 		detailsText.setText(project.getFullDescription());
 		
-		LinearLayout skillsLayout = (LinearLayout) convertView.findViewById(R.id.skillsLayout);
-		LinearLayout.LayoutParams buttonLayout = new LinearLayout.LayoutParams(
-				LinearLayout.LayoutParams.WRAP_CONTENT,
-				LinearLayout.LayoutParams.WRAP_CONTENT);
+		FlowLayout skillsLayout = (FlowLayout) convertView.findViewById(R.id.skillsLayout);
+		FlowLayout.LayoutParams buttonLayout = new FlowLayout.LayoutParams(
+				FlowLayout.LayoutParams.WRAP_CONTENT,
+				FlowLayout.LayoutParams.WRAP_CONTENT);
 		
 		Button skillButton;
 		Skill realSkill;;

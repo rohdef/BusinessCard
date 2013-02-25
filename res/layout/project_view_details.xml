@@ -11,11 +11,16 @@
 	    android:layout_gravity="center"
 	    android:textAppearance="?android:attr/textAppearanceSmall" />
 
-	<LinearLayout
-	    android:id="@+id/skillsLayout"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content" >
+<!-- 	<LinearLayout -->
+<!-- 	    android:id="@+id/skillsLayout" -->
+<!-- 	    android:layout_width="fill_parent" -->
+<!-- 	    android:layout_height="wrap_content" > -->
 
-	</LinearLayout>
+<!-- 	</LinearLayout> -->
+
+	<dk.rohdef.rohdeBusinessCard.layout.FlowLayout 
+	    android:id="@+id/skillsLayout"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content" />
 
 </LinearLayout>
