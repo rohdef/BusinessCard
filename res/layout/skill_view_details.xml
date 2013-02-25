@@ -11,4 +11,8 @@
         android:layout_gravity="center"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
+    <dk.rohdef.rohdeBusinessCard.layout.FlowLayout 
+	    android:id="@+id/projectListLayout"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content" />
 </LinearLayout>

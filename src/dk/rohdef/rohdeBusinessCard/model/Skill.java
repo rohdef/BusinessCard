@@ -8,6 +8,10 @@ public class Skill implements IHasId{
 	private SkillType skillType;
 	private String[] projects;
 
+	public String[] getProjects() {
+		return projects;
+	}
+
 	public SkillType getSkillType() {
 		return skillType;
 	}

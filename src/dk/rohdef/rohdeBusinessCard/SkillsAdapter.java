@@ -1,6 +1,7 @@
 package dk.rohdef.rohdeBusinessCard;
 
 import java.util.List;
+import java.util.Map;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -10,7 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.TextView;
+import dk.rohdef.rohdeBusinessCard.layout.FlowLayout;
+import dk.rohdef.rohdeBusinessCard.model.Project;
 import dk.rohdef.rohdeBusinessCard.model.Skill;
 
 public class SkillsAdapter extends BaseExpandableListAdapter {
@@ -86,6 +90,26 @@ public class SkillsAdapter extends BaseExpandableListAdapter {
 		
 		TextView skillDescription = (TextView) convertView.findViewById(R.id.skillDetails);
 		skillDescription.setText(skill.getDescription());
+		
+		FlowLayout projectsLayout = (FlowLayout) convertView.findViewById(R.id.projectListLayout);
+		FlowLayout.LayoutParams buttonLayout = new FlowLayout.LayoutParams(
+				FlowLayout.LayoutParams.WRAP_CONTENT,
+				FlowLayout.LayoutParams.WRAP_CONTENT);
+		
+		Button projectButton;
+		Project realProject;
+		Map<String, Project> projectsMap = DataHelper.getInstance().getProjectsMap();
+		
+		for (String project : skill.getProjects()) {
+			realProject = projectsMap.get(project); 
+			
+			projectButton = new Button(this.context);
+			projectButton.setLayoutParams(buttonLayout);
+			projectButton.setBackgroundResource(R.drawable.technical_button);
+			
+			projectButton.setText(realProject.getName());
+			projectsLayout.addView(projectButton);
+		}
 		
 		return convertView;
 	}
