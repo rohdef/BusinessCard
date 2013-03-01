@@ -9,7 +9,6 @@ import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,8 +18,9 @@ import android.view.View;
 import dk.rohdef.rohdeBusinessCard.DataHelper;
 import dk.rohdef.rohdeBusinessCard.R;
 
-public class MainActivity extends Activity {
+public class MainActivity extends TrackedActivity {
 	private static final String FIRST_RUN = "firstRun";
+	@SuppressWarnings("unused")
 	private DataHelper dataHelper;
 	
 	@Override

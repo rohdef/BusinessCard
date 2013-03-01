@@ -2,7 +2,6 @@ package dk.rohdef.rohdeBusinessCard.activity;
 
 import java.util.List;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.Display;
 import android.widget.ExpandableListView;
@@ -12,7 +11,7 @@ import dk.rohdef.rohdeBusinessCard.R;
 import dk.rohdef.rohdeBusinessCard.SkillsAdapter;
 import dk.rohdef.rohdeBusinessCard.model.Skill;
 
-public class Skills extends Activity {
+public class Skills extends TrackedActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
